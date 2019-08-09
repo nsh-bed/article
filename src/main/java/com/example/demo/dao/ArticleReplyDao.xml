@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ArticleReplyDao">
+
+	<insert id="addReply" useGeneratedKeys="true" keyProperty="id"
+		parameterType="map">
+		INSERT INTO articleReply
+		SET regDate = NOW(),
+		articleId =
+		#{articleId},
+		boardId = #{boardId},
+		memberId = #{memberId},
+		body =
+		#{body}
+	</insert>
+
+	<select id="deleteReply" parameterType="map">
+		DELETE FROM articleReply
+		WHERE id = #{id}
+	</select>
+
+	<select id="getReplyOne" parameterType="long"
+		resultMap="ArticleReply">
+		SELECT *
+		FROM articleReply
+		WHERE id = #{id}
+	</select>
+
+	<select id="getReplyList" parameterType="map"
+		resultMap="ArticleReply">
+		SELECT *
+		FROM articleReply
+		WHERE articleId = #{articleId}
+	</select>
+
+	<insert id="update" parameterType="map">
+		UPDATE articleReply
+		SET body = #{body}
+		WHERE id = #{id}
+	</insert>
+
+
+	<resultMap id="ArticleReply"
+		type="com.example.demo.dto.ArticleReply">
+		<id property="id" column="id" />
+		<id property="regDate" column="regDate" />
+		<id property="articleId" column="articleId" />
+		<id property="boardId" column="boardId" />
+		<id property="memberId" column="memberId" />
+		<id property="body" column="body" />
+	</resultMap>
+</mapper>
